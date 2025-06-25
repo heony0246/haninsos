@@ -2,7 +2,9 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>구조 요청서 편집용</title>
+  <title>구조 요청서 전송</title>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   <style>
     body {
       margin: 0;
@@ -10,7 +12,6 @@
       background: #f0f0f0;
       font-family: sans-serif;
     }
-
     .wrapper {
       position: relative;
       width: 893px;
@@ -22,17 +23,16 @@
       background-position: top left;
       border: 1px solid #aaa;
     }
-
     .box {
       position: absolute;
       font-size: 14px;
       padding: 4px;
       border: 1px solid #999;
       background: rgba(255, 255, 255, 0.85);
-      resize: both;
+      resize: none;
       overflow: auto;
     }
-
+    /* 모든 입력 필드 위치 지정 (사용자 제공된 전체 필드 복사) */
     .문서번호1 { top: 111px; left: 755px; width: 45px; }
     .문서번호2 { top: 1373px; left: 735px; width: 45px; }
     .담당자1 { top: 227px; left: 270px; width: 220px; }
@@ -85,27 +85,9 @@
     .귀국후계획 { top: 1900px; left: 96px; width: 690px; height: 110px; }
     .사례접수 { top: 2110px; left: 96px; width: 690px; height: 110px; }
     .전문가의견 { top: 2305px; left: 96px; width: 690px; height: 130px; }
-
-    #photoInput {
-      position: absolute;
-      top: 890px;
-      left: 170px;
-      width: 300px;
-    }
-
-    #preview {
-      position: absolute;
-      top: 910px;
-      left: 170px;
-      width: 615px;
-      height: 295px;
-      object-fit: cover;
-      border: 1px solid #ccc;
-    }
-
     #sendButton {
       position: absolute;
-      bottom: 5px;
+      bottom: 20px;
       left: 50%;
       transform: translateX(-50%);
       padding: 12px 30px;
@@ -114,95 +96,63 @@
       color: white;
       border: none;
       cursor: pointer;
+      z-index: 999;
     }
   </style>
 </head>
 <body>
-  <div class="wrapper">
-    <input class="box 문서번호1" placeholder="">
-    <input class="box 문서번호2" placeholder="">
-    <input class="box 담당자1" placeholder="내용">
-    <input class="box 담당자2" placeholder="내용">
-    <input class="box 국가및도시" placeholder="국가/도시">
-    <input class="box 귀국일" placeholder="귀국일">
-    <input class="box 이름" placeholder="이름">
-    <input class="box 불법체류사유" placeholder="불법체류사유">
-    <input class="box 연락처" placeholder="연락처">
-    <input class="box 불법체류기간" placeholder="불법체류기간">
-    <input class="box 현재주소" placeholder="현재주소">
-    <input class="box 주민등록번호" placeholder="주민등록번호">
-    <input class="box 한국주소" placeholder="한국주소">
-    <input class="box 성명" placeholder="성명">
-    <input class="box 연락처1" placeholder="연락처">
-    <input class="box 소속기관" placeholder="소속기관">
-    <input class="box 이메일" placeholder="이메일">
-    <input class="box 기관주소" placeholder="기관주소">
-    <input class="box 성명1" placeholder="성명">
-    <input class="box 관계" placeholder="관계">
-    <input class="box 나이" placeholder="나이">
-    <input class="box 상세내용" placeholder="상세내용">
-    <input class="box 연락처2" placeholder="연락처">
-    <input class="box 성명2" placeholder="성명">
-    <input class="box 관계2" placeholder="관계">
-    <input class="box 나이2" placeholder="나이">
-    <input class="box 상세내용2" placeholder="상세내용">
-    <input class="box 연락처3" placeholder="연락처">
-    <input class="box 성명3" placeholder="성명">
-    <input class="box 관계3" placeholder="관계">
-    <input class="box 나이3" placeholder="나이">
-    <input class="box 상세내용3" placeholder="상세내용">
-    <input class="box 연락처4" placeholder="연락처">
-    <input class="box 성명4" placeholder="성명">
-    <input class="box 관계4" placeholder="관계">
-    <input class="box 나이4" placeholder="나이">
-    <input class="box 상세내용4" placeholder="상세내용">
-    <input class="box 연락처5" placeholder="연락처">
-    <input class="box 세부항목1" placeholder="세부항목">
-    <input class="box 산출근거1" placeholder="산출근거">
-    <input class="box 금액1" placeholder="금액">
-    <input class="box 세부항목2" placeholder="세부항목">
-    <input class="box 산출근거2" placeholder="산출근거">
-    <input class="box 금액2" placeholder="금액">
-    <input class="box 세부항목3" placeholder="세부항목">
-    <input class="box 산출근거3" placeholder="산출근거">
-    <input class="box 금액3" placeholder="금액">
-    <textarea class="box 현지생활현황" placeholder="상세히 적어주세요"></textarea>
-    <textarea class="box 건강상태" placeholder="상세히 적어주세요"></textarea>
-    <textarea class="box 귀국후계획" placeholder="상세히 적어주세요"></textarea>
-    <textarea class="box 사례접수" placeholder="상세히 적어주세요"></textarea>
-    <textarea class="box 전문가의견" placeholder="안적어주셔도 됩니다."></textarea>
-    <input type="file" id="photoInput" accept="image/*">
-    <img id="preview" alt="사진 미리보기" />
+  <div id="capture" class="wrapper">
+    <input class="box 문서번호1"><input class="box 문서번호2">
+    <input class="box 담당자1"><input class="box 담당자2">
+    <input class="box 국가및도시"><input class="box 귀국일">
+    <input class="box 이름"><input class="box 불법체류사유">
+    <input class="box 연락처"><input class="box 불법체류기간">
+    <input class="box 현재주소"><input class="box 주민등록번호">
+    <input class="box 한국주소">
+    <input class="box 성명"><input class="box 연락처1">
+    <input class="box 소속기관"><input class="box 이메일">
+    <input class="box 기관주소">
+    <input class="box 성명1"><input class="box 관계"><input class="box 나이">
+    <input class="box 상세내용"><input class="box 연락처2">
+    <input class="box 성명2"><input class="box 관계2"><input class="box 나이2">
+    <input class="box 상세내용2"><input class="box 연락처3">
+    <input class="box 성명3"><input class="box 관계3"><input class="box 나이3">
+    <input class="box 상세내용3"><input class="box 연락처4">
+    <input class="box 성명4"><input class="box 관계4"><input class="box 나이4">
+    <input class="box 상세내용4"><input class="box 연락처5">
+    <input class="box 세부항목1"><input class="box 산출근거1"><input class="box 금액1">
+    <input class="box 세부항목2"><input class="box 산출근거2"><input class="box 금액2">
+    <input class="box 세부항목3"><input class="box 산출근거3"><input class="box 금액3">
+    <textarea class="box 현지생활현황"></textarea>
+    <textarea class="box 건강상태"></textarea>
+    <textarea class="box 귀국후계획"></textarea>
+    <textarea class="box 사례접수"></textarea>
+    <textarea class="box 전문가의견"></textarea>
     <button id="sendButton">전송하기</button>
   </div>
   <script>
-    document.getElementById("photoInput").addEventListener("change", function (event) {
-      const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-          document.getElementById("preview").src = e.target.result;
-        };
-        reader.readAsDataURL(file);
-      }
-    });
+    emailjs.init("FrQw4pxugC6weSAU-");
     document.getElementById("sendButton").addEventListener("click", function () {
-      const inputs = document.querySelectorAll(".box");
-      const data = {};
-      inputs.forEach(input => {
-        const name = input.classList[1] || "unknown";
-        data[name] = input.value;
+      const button = this;
+      button.disabled = true;
+      button.textContent = "전송 중...";
+      html2canvas(document.getElementById("capture")).then(canvas => {
+        const imageData = canvas.toDataURL("image/jpeg");
+        emailjs.send("service_cqj9ea3", "template_td2mamr", {
+          message: "구조요청서 첨부 이미지입니다.",
+          screenshot: imageData
+        })
+        .then(() => {
+          alert("✅ 메일 전송 완료!");
+          button.disabled = false;
+          button.textContent = "전송하기";
+        })
+        .catch((err) => {
+          alert("❌ 전송 실패: " + err.text);
+          button.disabled = false;
+          button.textContent = "전송하기";
+        });
       });
-      fetch("https://script.google.com/macros/s/AKfycbz9vYe8BaSbgAodlgo8nRvxtAoMEQuDkeAPgkqlhtDweXXVZBpEBYS4b2O9vWMFzS8d0A/exec", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-      })
-      .then(res => res.text())
-      .then(msg => alert("전송 완료: " + msg))
-      .catch(err => alert("전송 실패: " + err));
     });
   </script>
 </body>
