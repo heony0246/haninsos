@@ -33,8 +33,6 @@
       overflow: auto;
     }
 
-    /* 위치 조절 생략: 기존 스타일 그대로 유지 */
-
     #photoInput {
       position: absolute;
       top: 890px;
@@ -67,47 +65,89 @@
   </style>
 </head>
 <body>
-  <div class="wrapper">
-    <!-- 입력칸들 그대로 유지 -->
-    <!-- ... 중략 ... -->
-
-    <input type="file" id="photoInput" accept="image/*">
-    <img id="preview" alt="사진 미리보기" />
-
-    <button id="sendButton">전송하기</button>
+  <div class="wrapper" id="wrapper">
+    <!-- 이곳에 .box input/textarea 요소들이 있어야 함 -->
   </div>
 
   <script>
-    document.getElementById("photoInput").addEventListener("change", function (event) {
-      const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-          document.getElementById("preview").src = e.target.result;
-        };
-        reader.readAsDataURL(file);
-      }
-    });
+    window.addEventListener("DOMContentLoaded", function () {
+      const fields = [
+        "문서번호1", "문서번호2", "담당자1", "담당자2", "국가및도시", "귀국일",
+        "이름", "불법체류사유", "연락처", "불법체류기간", "현재주소", "주민등록번호",
+        "한국주소", "성명", "연락처1", "소속기관", "이메일", "기관주소",
+        "성명1", "관계", "나이", "상세내용", "연락처2",
+        "성명2", "관계2", "나이2", "상세내용2", "연락처3",
+        "성명3", "관계3", "나이3", "상세내용3", "연락처4",
+        "성명4", "관계4", "나이4", "상세내용4", "연락처5",
+        "세부항목1", "산출근거1", "금액1",
+        "세부항목2", "산출근거2", "금액2",
+        "세부항목3", "산출근거3", "금액3"
+      ];
 
-    document.getElementById("sendButton").addEventListener("click", function () {
-      const inputs = document.querySelectorAll(".box");
-      const data = {};
+      const wrapper = document.getElementById("wrapper");
 
-      inputs.forEach(input => {
-        const key = input.classList[1] || input.placeholder || "unknown";
-        data[key] = input.value;
+      fields.forEach(className => {
+        const input = document.createElement("input");
+        input.className = `box ${className}`;
+        input.placeholder = className;
+        wrapper.appendChild(input);
       });
 
-      fetch("YOUR_GOOGLE_SCRIPT_WEBAPP_URL", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json"
+      const textareaFields = ["현지생활현황", "건강상태", "귀국후계획", "사례접수", "전문가의견"];
+      textareaFields.forEach(className => {
+        const textarea = document.createElement("textarea");
+        textarea.className = `box ${className}`;
+        textarea.placeholder = className;
+        wrapper.appendChild(textarea);
+      });
+
+      const photoInput = document.createElement("input");
+      photoInput.type = "file";
+      photoInput.id = "photoInput";
+      photoInput.accept = "image/*";
+      wrapper.appendChild(photoInput);
+
+      const preview = document.createElement("img");
+      preview.id = "preview";
+      preview.alt = "사진 미리보기";
+      wrapper.appendChild(preview);
+
+      const sendButton = document.createElement("button");
+      sendButton.id = "sendButton";
+      sendButton.innerText = "전송하기";
+      wrapper.appendChild(sendButton);
+
+      photoInput.addEventListener("change", function (event) {
+        const file = event.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            preview.src = e.target.result;
+          };
+          reader.readAsDataURL(file);
         }
-      })
-      .then(res => res.text())
-      .then(txt => alert("전송 성공: " + txt))
-      .catch(err => alert("에러: " + err));
+      });
+
+      sendButton.addEventListener("click", function () {
+        const inputs = document.querySelectorAll(".box");
+        const data = {};
+
+        inputs.forEach(input => {
+          const key = input.classList[1] || input.placeholder || "unknown";
+          data[key] = input.value;
+        });
+
+        fetch("YOUR_GOOGLE_SCRIPT_WEBAPP_URL", {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+        .then(res => res.text())
+        .then(txt => alert("전송 성공: " + txt))
+        .catch(err => alert("에러: " + err));
+      });
     });
   </script>
 </body>
