@@ -33,13 +33,64 @@
       overflow: auto;
     }
 
+    .문서번호1 { top: 111px; left: 755px; width: 45px; }
+    .문서번호2 { top: 1373px; left: 735px; width: 45px; }
+    .담당자1 { top: 227px; left: 270px; width: 220px; }
+    .담당자2 { top: 227px; left: 620px; width: 175px; }
+    .국가및도시 { top: 313px; left: 270px; width: 220px; }
+    .귀국일 { top: 313px; left: 620px; width: 175px; }
+    .이름 { top: 342px; left: 270px; width: 220px; }
+    .불법체류사유 { top: 342px; left: 620px; width: 175px; }
+    .연락처 { top: 371px; left: 270px; width: 220px; }
+    .불법체류기간 { top: 371px; left: 620px; width: 175px; }
+    .현재주소 { top: 402px; left: 270px; width: 220px; }
+    .주민등록번호 { top: 402px; left: 620px; width: 175px; }
+    .한국주소 { top: 437px; left: 270px; width: 525px; }
+    .성명 { top: 471px; left: 270px; width: 220px; }
+    .연락처1 { top: 471px; left: 620px; width: 175px; }
+    .소속기관 { top: 502px; left: 270px; width: 220px; }
+    .이메일 { top: 502px; left: 620px; width: 175px; }
+    .기관주소 { top: 532px; left: 270px; width: 525px; }
+    .성명1 { top: 598px; left: 156px; width: 99px; }
+    .관계 { top: 598px; left: 271px; width: 37px; }
+    .나이 { top: 598px; left: 324px; width: 38px; }
+    .상세내용 { top: 598px; left: 377px; width: 229px; }
+    .연락처2 { top: 598px; left: 623px; width: 172px; }
+    .성명2 { top: 633px; left: 156px; width: 99px; }
+    .관계2 { top: 633px; left: 271px; width: 37px; }
+    .나이2 { top: 633px; left: 324px; width: 38px; }
+    .상세내용2 { top: 633px; left: 377px; width: 229px; }
+    .연락처3 { top: 633px; left: 623px; width: 172px; }
+    .성명3 { top: 668px; left: 156px; width: 99px; }
+    .관계3 { top: 668px; left: 271px; width: 37px; }
+    .나이3 { top: 668px; left: 324px; width: 38px; }
+    .상세내용3 { top: 668px; left: 377px; width: 229px; }
+    .연락처4 { top: 668px; left: 623px; width: 172px; }
+    .성명4 { top: 702px; left: 156px; width: 99px; }
+    .관계4 { top: 702px; left: 271px; width: 37px; }
+    .나이4 { top: 702px; left: 324px; width: 38px; }
+    .상세내용4 { top: 702px; left: 377px; width: 229px; }
+    .연락처5 { top: 702px; left: 623px; width: 172px; }
+    .세부항목1 { top: 763px; left: 271px; width: 335px; }
+    .산출근거1 { top: 763px; left: 156px; width: 99px; }
+    .금액1 { top: 763px; left: 623px; width: 172px; }
+    .세부항목2 { top: 791px; left: 271px; width: 335px; }
+    .산출근거2 { top: 791px; left: 156px; width: 99px; }
+    .금액2 { top: 791px; left: 623px; width: 172px; }
+    .세부항목3 { top: 819px; left: 271px; width: 335px; }
+    .산출근거3 { top: 819px; left: 156px; width: 99px; }
+    .금액3 { top: 819px; left: 623px; width: 172px; }
+    .현지생활현황 { top: 1510px; left: 96px; width: 690px; height: 130px; }
+    .건강상태 { top: 1720px; left: 96px; width: 690px; height: 90px; }
+    .귀국후계획 { top: 1900px; left: 96px; width: 690px; height: 110px; }
+    .사례접수 { top: 2110px; left: 96px; width: 690px; height: 110px; }
+    .전문가의견 { top: 2305px; left: 96px; width: 690px; height: 130px; }
     #photoInput {
       position: absolute;
       top: 890px;
       left: 170px;
       width: 300px;
     }
-
     #preview {
       position: absolute;
       top: 910px;
@@ -49,7 +100,6 @@
       object-fit: cover;
       border: 1px solid #ccc;
     }
-
     #sendButton {
       position: absolute;
       bottom: 5px;
@@ -65,89 +115,95 @@
   </style>
 </head>
 <body>
-  <div class="wrapper" id="wrapper">
-    <!-- 이곳에 .box input/textarea 요소들이 있어야 함 -->
+  <div class="wrapper">
+    <input class="box 문서번호1" placeholder="">
+    <input class="box 문서번호2" placeholder="">
+    <input class="box 담당자1" placeholder="내용">
+    <input class="box 담당자2" placeholder="내용">
+    <input class="box 국가및도시" placeholder="국가/도시">
+    <input class="box 귀국일" placeholder="귀국일">
+    <input class="box 이름" placeholder="이름">
+    <input class="box 불법체류사유" placeholder="불법체류사유">
+    <input class="box 연락처" placeholder="연락처">
+    <input class="box 불법체류기간" placeholder="불법체류기간">
+    <input class="box 현재주소" placeholder="현재주소">
+    <input class="box 주민등록번호" placeholder="주민등록번호">
+    <input class="box 한국주소" placeholder="한국주소">
+    <input class="box 성명" placeholder="성명">
+    <input class="box 연락처1" placeholder="연락처">
+    <input class="box 소속기관" placeholder="소속기관">
+    <input class="box 이메일" placeholder="이메일">
+    <input class="box 기관주소" placeholder="기관주소">
+    <input class="box 성명1" placeholder="성명">
+    <input class="box 관계" placeholder="관계">
+    <input class="box 나이" placeholder="나이">
+    <input class="box 상세내용" placeholder="상세내용">
+    <input class="box 연락처2" placeholder="연락처">
+    <input class="box 성명2" placeholder="성명">
+    <input class="box 관계2" placeholder="관계">
+    <input class="box 나이2" placeholder="나이">
+    <input class="box 상세내용2" placeholder="상세내용">
+    <input class="box 연락처3" placeholder="연락처">
+    <input class="box 성명3" placeholder="성명">
+    <input class="box 관계3" placeholder="관계">
+    <input class="box 나이3" placeholder="나이">
+    <input class="box 상세내용3" placeholder="상세내용">
+    <input class="box 연락처4" placeholder="연락처">
+    <input class="box 성명4" placeholder="성명">
+    <input class="box 관계4" placeholder="관계">
+    <input class="box 나이4" placeholder="나이">
+    <input class="box 상세내용4" placeholder="상세내용">
+    <input class="box 연락처5" placeholder="연락처">
+    <input class="box 세부항목1" placeholder="세부항목">
+    <input class="box 산출근거1" placeholder="산출근거">
+    <input class="box 금액1" placeholder="금액">
+    <input class="box 세부항목2" placeholder="세부항목">
+    <input class="box 산출근거2" placeholder="산출근거">
+    <input class="box 금액2" placeholder="금액">
+    <input class="box 세부항목3" placeholder="세부항목">
+    <input class="box 산출근거3" placeholder="산출근거">
+    <input class="box 금액3" placeholder="금액">
+    <textarea class="box 현지생활현황" placeholder="상세히 적어주세요"></textarea>
+    <textarea class="box 건강상태" placeholder="상세히 적어주세요"></textarea>
+    <textarea class="box 귀국후계획" placeholder="상세히 적어주세요"></textarea>
+    <textarea class="box 사례접수" placeholder="상세히 적어주세요"></textarea>
+    <textarea class="box 전문가의견" placeholder="안적어주셔도 됩니다."></textarea>
+    <input type="file" id="photoInput" accept="image/*">
+    <img id="preview" alt="사진 미리보기">
+    <button id="sendButton">전송하기</button>
   </div>
 
   <script>
-    window.addEventListener("DOMContentLoaded", function () {
-      const fields = [
-        "문서번호1", "문서번호2", "담당자1", "담당자2", "국가및도시", "귀국일",
-        "이름", "불법체류사유", "연락처", "불법체류기간", "현재주소", "주민등록번호",
-        "한국주소", "성명", "연락처1", "소속기관", "이메일", "기관주소",
-        "성명1", "관계", "나이", "상세내용", "연락처2",
-        "성명2", "관계2", "나이2", "상세내용2", "연락처3",
-        "성명3", "관계3", "나이3", "상세내용3", "연락처4",
-        "성명4", "관계4", "나이4", "상세내용4", "연락처5",
-        "세부항목1", "산출근거1", "금액1",
-        "세부항목2", "산출근거2", "금액2",
-        "세부항목3", "산출근거3", "금액3"
-      ];
+    document.getElementById("photoInput").addEventListener("change", function (event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          document.getElementById("preview").src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
 
-      const wrapper = document.getElementById("wrapper");
+    document.getElementById("sendButton").addEventListener("click", function () {
+      const inputs = document.querySelectorAll(".box");
+      const data = {};
 
-      fields.forEach(className => {
-        const input = document.createElement("input");
-        input.className = `box ${className}`;
-        input.placeholder = className;
-        wrapper.appendChild(input);
+      inputs.forEach(input => {
+        const key = input.classList[1] || input.placeholder || "unknown";
+        data[key] = input.value;
       });
 
-      const textareaFields = ["현지생활현황", "건강상태", "귀국후계획", "사례접수", "전문가의견"];
-      textareaFields.forEach(className => {
-        const textarea = document.createElement("textarea");
-        textarea.className = `box ${className}`;
-        textarea.placeholder = className;
-        wrapper.appendChild(textarea);
-      });
-
-      const photoInput = document.createElement("input");
-      photoInput.type = "file";
-      photoInput.id = "photoInput";
-      photoInput.accept = "image/*";
-      wrapper.appendChild(photoInput);
-
-      const preview = document.createElement("img");
-      preview.id = "preview";
-      preview.alt = "사진 미리보기";
-      wrapper.appendChild(preview);
-
-      const sendButton = document.createElement("button");
-      sendButton.id = "sendButton";
-      sendButton.innerText = "전송하기";
-      wrapper.appendChild(sendButton);
-
-      photoInput.addEventListener("change", function (event) {
-        const file = event.target.files[0];
-        if (file) {
-          const reader = new FileReader();
-          reader.onload = function (e) {
-            preview.src = e.target.result;
-          };
-          reader.readAsDataURL(file);
+      fetch("YOUR_GOOGLE_SCRIPT_WEBAPP_URL", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json"
         }
-      });
-
-      sendButton.addEventListener("click", function () {
-        const inputs = document.querySelectorAll(".box");
-        const data = {};
-
-        inputs.forEach(input => {
-          const key = input.classList[1] || input.placeholder || "unknown";
-          data[key] = input.value;
-        });
-
-        fetch("YOUR_GOOGLE_SCRIPT_WEBAPP_URL", {
-          method: "POST",
-          body: JSON.stringify(data),
-          headers: {
-            "Content-Type": "application/json"
-          }
-        })
-        .then(res => res.text())
-        .then(txt => alert("전송 성공: " + txt))
-        .catch(err => alert("에러: " + err));
-      });
+      })
+      .then(res => res.text())
+      .then(txt => alert("전송 성공: " + txt))
+      .catch(err => alert("에러: " + err));
     });
   </script>
 </body>
