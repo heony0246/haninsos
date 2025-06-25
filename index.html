@@ -32,59 +32,6 @@
       resize: none;
       overflow: auto;
     }
-    /* 위치 생략된 필드는 동일하게 유지 */
-    .문서번호1 { top: 111px; left: 755px; width: 45px; }
-    .문서번호2 { top: 1373px; left: 735px; width: 45px; }
-    .담당자1 { top: 227px; left: 270px; width: 220px; }
-    .담당자2 { top: 227px; left: 620px; width: 175px; }
-    .국가및도시 { top: 313px; left: 270px; width: 220px; }
-    .귀국일 { top: 313px; left: 620px; width: 175px; }
-    .이름 { top: 342px; left: 270px; width: 220px; }
-    .불법체류사유 { top: 342px; left: 620px; width: 175px; }
-    .연락처 { top: 371px; left: 270px; width: 220px; }
-    .불법체류기간 { top: 371px; left: 620px; width: 175px; }
-    .현재주소 { top: 402px; left: 270px; width: 220px; }
-    .주민등록번호 { top: 402px; left: 620px; width: 175px; }
-    .한국주소 { top: 437px; left: 270px; width: 525px; }
-    .성명 { top: 471px; left: 270px; width: 220px; }
-    .연락처1 { top: 471px; left: 620px; width: 175px; }
-    .소속기관 { top: 502px; left: 270px; width: 220px; }
-    .이메일 { top: 502px; left: 620px; width: 175px; }
-    .기관주소 { top: 532px; left: 270px; width: 525px; }
-    .성명1 { top: 598px; left: 156px; width: 99px; }
-    .관계 { top: 598px; left: 271px; width: 37px; }
-    .나이 { top: 598px; left: 324px; width: 38px; }
-    .상세내용 { top: 598px; left: 377px; width: 229px; }
-    .연락처2 { top: 598px; left: 623px; width: 172px; }
-    .성명2 { top: 633px; left: 156px; width: 99px; }
-    .관계2 { top: 633px; left: 271px; width: 37px; }
-    .나이2 { top: 633px; left: 324px; width: 38px; }
-    .상세내용2 { top: 633px; left: 377px; width: 229px; }
-    .연락처3 { top: 633px; left: 623px; width: 172px; }
-    .성명3 { top: 668px; left: 156px; width: 99px; }
-    .관계3 { top: 668px; left: 271px; width: 37px; }
-    .나이3 { top: 668px; left: 324px; width: 38px; }
-    .상세내용3 { top: 668px; left: 377px; width: 229px; }
-    .연락처4 { top: 668px; left: 623px; width: 172px; }
-    .성명4 { top: 702px; left: 156px; width: 99px; }
-    .관계4 { top: 702px; left: 271px; width: 37px; }
-    .나이4 { top: 702px; left: 324px; width: 38px; }
-    .상세내용4 { top: 702px; left: 377px; width: 229px; }
-    .연락처5 { top: 702px; left: 623px; width: 172px; }
-    .세부항목1 { top: 763px; left: 271px; width: 335px; }
-    .산출근거1 { top: 763px; left: 156px; width: 99px; }
-    .금액1 { top: 763px; left: 623px; width: 172px; }
-    .세부항목2 { top: 791px; left: 271px; width: 335px; }
-    .산출근거2 { top: 791px; left: 156px; width: 99px; }
-    .금액2 { top: 791px; left: 623px; width: 172px; }
-    .세부항목3 { top: 819px; left: 271px; width: 335px; }
-    .산출근거3 { top: 819px; left: 156px; width: 99px; }
-    .금액3 { top: 819px; left: 623px; width: 172px; }
-    .현지생활현황 { top: 1510px; left: 96px; width: 690px; height: 130px; }
-    .건강상태 { top: 1720px; left: 96px; width: 690px; height: 90px; }
-    .귀국후계획 { top: 1900px; left: 96px; width: 690px; height: 110px; }
-    .사례접수 { top: 2110px; left: 96px; width: 690px; height: 110px; }
-    .전문가의견 { top: 2305px; left: 96px; width: 690px; height: 130px; }
     #sendButton {
       position: absolute;
       bottom: 20px;
@@ -102,7 +49,6 @@
 </head>
 <body>
   <div id="capture" class="wrapper">
-    <!-- 입력 필드 전체 생략 없이 포함 -->
     <input class="box 문서번호1"><input class="box 문서번호2">
     <input class="box 담당자1"><input class="box 담당자2">
     <input class="box 국가및도시"><input class="box 귀국일">
@@ -138,7 +84,6 @@
       button.disabled = true;
       button.textContent = "전송 중...";
 
-      // 텍스트 데이터 수집
       const inputs = document.querySelectorAll(".box");
       let dataText = "";
       inputs.forEach(input => {
@@ -146,23 +91,35 @@
         dataText += `${label}: ${input.value}\n`;
       });
 
-      html2canvas(document.getElementById("capture"), { scale: 0.4 }).then(canvas => {
-        const imageData = canvas.toDataURL("image/jpeg", 0.1);
+      html2canvas(document.getElementById("capture"), { scale: 2 }).then(canvas => {
+        canvas.toBlob(function (blob) {
+          const formData = new FormData();
+          formData.append("file", blob);
+          formData.append("upload_preset", "haninsos"); // preset name
 
-        emailjs.send("service_cqj9ea3", "template_td2mamr", {
-          message: dataText,
-          screenshot: imageData
-        })
-        .then(() => {
-          alert("✅ 메일 전송 완료!");
-          button.disabled = false;
-          button.textContent = "전송하기";
-        })
-        .catch((err) => {
-          alert("❌ 전송 실패: " + err.text);
-          button.disabled = false;
-          button.textContent = "전송하기";
-        });
+          fetch("https://api.cloudinary.com/v1_1/haninsos/image/upload", {
+            method: "POST",
+            body: formData
+          })
+          .then(res => res.json())
+          .then(data => {
+            const imageUrl = data.secure_url;
+            return emailjs.send("service_cqj9ea3", "template_td2mamr", {
+              message: dataText,
+              screenshot: imageUrl
+            });
+          })
+          .then(() => {
+            alert("✅ 메일 전송 완료!");
+            button.disabled = false;
+            button.textContent = "전송하기";
+          })
+          .catch((err) => {
+            alert("❌ 전송 실패: " + err.message);
+            button.disabled = false;
+            button.textContent = "전송하기";
+          });
+        }, "image/jpeg");
       });
     });
   </script>
