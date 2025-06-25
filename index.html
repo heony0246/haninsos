@@ -17,7 +17,7 @@
       width: 893px;
       height: 2526px;
       margin: 0 auto;
-      background-image: url('https://cdn.imweb.me/upload/S20221123700ca8cd5ea82/c702bccb33d18.jpg');
+      background-image: url('https://cdn.imweb.me/upload/S20221123700ca8cd5ea82/7eff128aa8517.jpg');
       background-size: cover;
       background-repeat: no-repeat;
       background-position: top left;
@@ -137,7 +137,7 @@
       button.disabled = true;
       button.textContent = "전송 중...";
       html2canvas(document.getElementById("capture")).then(canvas => {
-        const imageData = canvas.toDataURL("image/jpeg", 0.3); // 60% 품질로 압축
+        const imageData = canvas.toDataURL("image/jpeg", 0.1); // 60% 품질로 압축
         emailjs.send("service_cqj9ea3", "template_td2mamr", {
           message: "구조요청서 첨부 이미지입니다.",
           screenshot: imageData
