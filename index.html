@@ -137,7 +137,7 @@
       button.disabled = true;
       button.textContent = "전송 중...";
       html2canvas(document.getElementById("capture")).then(canvas => {
-        const imageData = canvas.toDataURL("image/jpeg", 0.6); // 60% 품질로 압축
+        const imageData = canvas.toDataURL("image/jpeg", 0.3); // 60% 품질로 압축
         emailjs.send("service_cqj9ea3", "template_td2mamr", {
           message: "구조요청서 첨부 이미지입니다.",
           screenshot: imageData
